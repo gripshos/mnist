@@ -118,7 +118,7 @@ ibmcloud ce job delete --name train-model
 App to draw digit and prediction model to label its image
 ```
 # create app first time
-ibmcloud ce app create --name digit-image --src https://github.com/jeremycaine/mnist-image-ibm-ce --bcdr digit-image-app --str dockerfile --env-from-secret gripshover-cos-api-key --env-from-configmap mnist-image-ibm-ce-cm
+ibmcloud ce app create --name digit-image --src https://github.com/gripshos/mnist --bcdr digit-image-app --str dockerfile --env-from-secret gripshover-cos-api-key --env-from-configmap mnist-image-ibm-ce-cm
 
 # or, rebuild after git commit
 ibmcloud ce app update --name digit-image --rebuild
