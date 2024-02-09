@@ -88,14 +88,14 @@ ibmcloud ce project list
 ibmcloud ce project select --name mnist-image-ibm-ce
 
 # need secret
-ibmcloud ce secret create --name caine-cos-api-key --from-literal COS_API_KEY_ID=xxxxxxx
+ibmcloud ce secret create --name gripshover-cos-api-key --from-literal COS_API_KEY_ID=xxxxxxx
 
 # config map for variables
 ibmcloud ce configmap create --name mnist-image-ibm-ce-cm \
-    --from-literal COS_ENDPOINT=https://s3.eu-gb.cloud-object-storage.appdomain.cloud  \
+    --from-literal COS_ENDPOINT=https://s3.private.us-south.cloud-object-storage.appdomain.cloud  \
     --from-literal COS_AUTH_ENDPOINT=https://iam.cloud.ibm.com/identity/token  \
-    --from-literal COS_SERVICE_CRN=crn:v1:bluemix:public:cloud-object-storage:global:a/b71ac2564ef0b98f1032d189795994dc:875e3790-53c1-40b0-9943-33b010521174::  \
-    --from-literal COS_STORAGE_CLASS=eu-gb-smart  \
+    --from-literal COS_SERVICE_CRN=crn:v1:bluemix:public:cloud-object-storage:global:a/b71ac2564ef0b98f1032d189795994dc:875e3790-53c1-40b0-9943-33b010521174:bucket:gripshover-bucket:  \
+    --from-literal COS_STORAGE_CLASS=us-south-smart  \
     --from-literal H5_FILE_NAME=mnist-model.h5  \
     --from-literal TRAIN_CSV=mnist_train.csv  \
     --from-literal TEST_CSV=mnist_test.csv
@@ -105,7 +105,7 @@ ibmcloud ce configmap create --name mnist-image-ibm-ce-cm \
 Job to train image prediction model
 ```
 # create app first time
-ibmcloud ce job create --name train-model --src https://github.com/jeremycaine/mnist-image-ibm-ce --bcdr train-model --str dockerfile --env-from-secret caine-cos-api-key --env-from-configmap mnist-image-ibm-ce-cm --size large
+ibmcloud ce job create --name train-model --src https://github.com/gripshos/mnist --bcdr train-model --str dockerfile --env-from-secret gripshover-cos-api-key --env-from-configmap mnist-image-ibm-ce-cm --size large
 
 # or, rebuild after git commit
 ibmcloud ce job update --name train-model --rebuild
@@ -118,7 +118,7 @@ ibmcloud ce job delete --name train-model
 App to draw digit and prediction model to label its image
 ```
 # create app first time
-ibmcloud ce app create --name digit-image --src https://github.com/jeremycaine/mnist-image-ibm-ce --bcdr digit-image-app --str dockerfile --env-from-secret caine-cos-api-key --env-from-configmap mnist-image-ibm-ce-cm
+ibmcloud ce app create --name digit-image --src https://github.com/jeremycaine/mnist-image-ibm-ce --bcdr digit-image-app --str dockerfile --env-from-secret gripshover-cos-api-key --env-from-configmap mnist-image-ibm-ce-cm
 
 # or, rebuild after git commit
 ibmcloud ce app update --name digit-image --rebuild
