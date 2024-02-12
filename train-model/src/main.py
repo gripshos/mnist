@@ -22,8 +22,8 @@ COS_SERVICE_CRN = os.getenv('COS_SERVICE_CRN', 'crn:v1:bluemix:public:cloud-obje
 COS_STORAGE_CLASS = os.getenv('COS_STORAGE_CLASS','us-south-smart')
 
 # file vars
-bucket_name = os.getenv('BUCKET_NAME', 'mnist-model')
-h5_file_name = os.getenv('H5_FILE_NAME', 'mnist-model.h5')
+bucket_name = os.getenv('BUCKET_NAME', 'gripshover-bucket')
+h5_file_name = os.getenv('H5_FILE_NAME', 'mnist-model-sg.h5')
 train_csv = os.getenv('TRAIN_CSV', 'mnist_train.csv')
 test_csv = os.getenv('TEST_CSV', 'mnist_test.csv')
 
